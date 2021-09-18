@@ -21,7 +21,6 @@ show last entry
 ```
 
 
-
 ### dataformat
 
 - csv with 5 columns: date, time, timezone, dayname and date_rolling
