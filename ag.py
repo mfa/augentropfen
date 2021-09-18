@@ -57,9 +57,11 @@ def main(date, time, last):
     filename = "augentropfen.data"
 
     if last:
-        pprint(list(load_data(filename))[-1])
+        row = list(load_data(filename))[-1]
     else:
-        add_row(filename, gen_row(date, time))
+        row = gen_row(date, time)
+        add_row(filename, row)
+    pprint(row)
 
 
 if __name__ == "__main__":
