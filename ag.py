@@ -3,8 +3,17 @@
 import csv
 import datetime
 from pprint import pprint
+from zoneinfo import ZoneInfo
 
 import click
+
+
+def get_tz_offset(dt):
+    if isinstance(dt, datetime.date):
+        dt = datetime.datetime.combine(dt, datetime.datetime.now().time())
+    berlin_tz = ZoneInfo("Europe/Berlin")
+    offset = int(berlin_tz.utcoffset(dt).seconds / 3600)
+    return f"+0{offset}00"
 
 
 def load_data(filename):
@@ -21,9 +30,6 @@ def add_row(filename, new_row):
 
 
 def gen_row(date, time):
-    # FIXME automatically change between summer/normal time
-    tz = "+0200"
-
     if not date:
         date = datetime.date.today()
 
@@ -37,7 +43,7 @@ def gen_row(date, time):
     return {
         "date": date.strftime("%Y-%m-%d"),
         "time": time.strftime("%H:%M"),
-        "tz": tz,
+        "tz": get_tz_offset(date),
         "dayname": date.strftime("%a"),
         "date_rolling": date_rolling.strftime("%Y-%m-%d"),
     }

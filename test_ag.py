@@ -4,7 +4,7 @@ from zoneinfo import ZoneInfo
 import pytest
 import time_machine
 
-from ag import gen_row
+from ag import gen_row, get_tz_offset
 
 berlin_tz = ZoneInfo("Europe/Berlin")
 
@@ -46,7 +46,31 @@ berlin_tz = ZoneInfo("Europe/Berlin")
                 "tz": "+0200",
             },
         ),
+        # winter example
+        (
+            datetime.date(2020, 12, 25),
+            datetime.datetime.now().replace(hour=17, minute=11),
+            {
+                "date": "2020-12-25",
+                "date_rolling": "2020-12-25",
+                "dayname": "Fri",
+                "time": "17:11",
+                "tz": "+0100",
+            },
+        ),
     ),
 )
 def test_gen_row(date, time, expected):
     assert gen_row(date, time) == expected
+
+
+@time_machine.travel(datetime.datetime(2021, 1, 1, 13, 37, tzinfo=berlin_tz))
+def test_get_tz_offset_winter():
+    dt = datetime.datetime.now()
+    assert get_tz_offset(dt) == "+0100"
+
+
+@time_machine.travel(datetime.datetime(2021, 9, 18, 13, 37, tzinfo=berlin_tz))
+def test_get_tz_offset_summer():
+    dt = datetime.datetime.now()
+    assert get_tz_offset(dt) == "+0200"
