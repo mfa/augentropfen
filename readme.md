@@ -3,6 +3,8 @@
 Augentropen (eye drops)
 
 
+requires Python 3.9 for zoneinfo
+
 ### usage
 
 add new datatime for current time
