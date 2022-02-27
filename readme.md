@@ -27,3 +27,8 @@ show last entry
 
 - csv with 5 columns: date, time, timezone, dayname and date_rolling
 - date_rolling is set to the previous day when time is before 5am
+
+
+### links
+
+blogpost about analysis based on this data: <https://madflex.de/using-a-cli-tool-and-datasette-to-monitor-eye-drop-frequency/>
