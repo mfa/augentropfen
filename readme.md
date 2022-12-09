@@ -1,6 +1,6 @@
 ## track my eye drops usage
 
-Augentropen (eye drops)
+Augentropfen (eye drops)
 
 
 requires Python 3.9 for zoneinfo
